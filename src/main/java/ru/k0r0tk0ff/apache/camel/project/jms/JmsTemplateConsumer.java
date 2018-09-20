@@ -13,7 +13,7 @@ import javax.jms.TextMessage;
 @Component
 public class JmsTemplateConsumer {
 
-    private static Logger LOGGER =
+ /*   private static Logger LOGGER =
             LogManager.getLogger(JmsTemplateConsumer.class);
 
     @Autowired
@@ -34,6 +34,6 @@ public class JmsTemplateConsumer {
             e.printStackTrace();
             LOGGER.error("Error in JmsTemplateConsumer class!!", e);
         }
-    }
+    }*/
 }
 
