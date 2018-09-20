@@ -1,8 +1,7 @@
 package ru.k0r0tk0ff.apache.camel.project;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
-
-
+import org.apache.camel.CamelContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
 import ru.k0r0tk0ff.apache.camel.project.db.JmsRepository;
 import ru.k0r0tk0ff.apache.camel.project.jms.JmsTemplateProducer;
-import org.apache.camel.CamelContext;
+
 import org.apache.camel.component.jms.JmsComponent;
 import org.apache.camel.spring.javaconfig.CamelConfiguration;
 import java.util.concurrent.TimeUnit;
@@ -36,8 +35,7 @@ public class Application extends CamelConfiguration implements ApplicationRunner
 
     @Override
     public void run(ApplicationArguments applicationArguments) throws Exception {
-
-        final String customJmsType = "custom JMS type";
+/*        final String customJmsType = "custom JMS type";
         for (int i = 0; i < 5; i++){
             TimeUnit.SECONDS.sleep(1);
             jmsTemplateProducer.sendMessage(String.valueOf(i), customJmsType);
@@ -45,6 +43,8 @@ public class Application extends CamelConfiguration implements ApplicationRunner
         LOGGER.info("Waiting for all ActiveMQ JMS Messages to be consumed");
         TimeUnit.SECONDS.sleep(3);
         jmsRepository.showDataInDb();
+        */
+        TimeUnit.SECONDS.sleep(3);
         System.exit(0);
     }
 
