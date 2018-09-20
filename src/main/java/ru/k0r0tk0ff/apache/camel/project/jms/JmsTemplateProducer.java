@@ -17,7 +17,7 @@ JmsTemplate jmsTemplate;
 
     private static Logger LOGGER = LogManager.getLogger(JmsTemplateProducer.class);
 
-    public void sendMessage(String i, String type) {
+  /*  public void sendMessage(String i, String type) {
         final String j = i;
         jmsTemplate.send(
                 session -> {
@@ -34,5 +34,5 @@ JmsTemplate jmsTemplate;
                     return message;
                 }
         );
-    }
+    }*/
 }
