@@ -13,13 +13,18 @@ public class JmsFileListener {
     private static Logger LOGGER =
             LogManager.getLogger(JmsFileListener.class);
 
-    @JmsListener(destination = "empty")
+    final String queue = "empty";
+
+    @JmsListener(destination = queue)
     public void receiveXmlFile(BytesMessage bytesMessage) {
         try {
             byte[] bytes = new byte[(int) bytesMessage.getBodyLength()];
             bytesMessage.readBytes(bytes);
             String out = new String(bytes);
-            LOGGER.info("Read received file:" + out);
+            LOGGER.info(
+                    String.format(" Queue = %s; File contains = %s",
+                            queue, out)
+            );
         } catch (Exception e) {
             e.printStackTrace();
             LOGGER.error("Error in JmsFileListener class!!", e);
