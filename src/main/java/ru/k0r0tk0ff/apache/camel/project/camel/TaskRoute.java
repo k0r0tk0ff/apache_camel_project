@@ -4,6 +4,7 @@ import org.apache.camel.builder.RouteBuilder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.k0r0tk0ff.apache.camel.project.db.JmsRepository;
 
 
 @Component
@@ -19,9 +20,10 @@ public class TaskRoute extends RouteBuilder {
         .when(header("CamelFileName").endsWith(".xml"))
             .to("jms:queue:empty")
         .when(header("CamelFileName").endsWith(".txt"))
+            .bean(JmsRepository.class, "writeMessageToDb")
             .to("jms:queue:empty")
         .otherwise()
-            .to("jms:invalid-queue:empty")
+            .to("jms:queue:invalid-queue")
             .process(errorProcessor);
     }
 }
