@@ -18,7 +18,8 @@
         <maven-compiler-version>3.5.1</maven-compiler-version>
         <java-source-version>1.8</java-source-version>
         <java-target-version>1.8</java-target-version>
-        <apache-camel-version>2.18.0</apache-camel-version>
+     <!--   <apache-camel-version>2.18.0</apache-camel-version>-->
+        <apache-camel-version>2.22.1</apache-camel-version>
     </properties>
 
     <parent>
@@ -87,6 +88,19 @@
             <artifactId>camel-jms</artifactId>
             <version>${apache-camel-version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.camel/camel-context -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-context</artifactId>
+            <version>${apache-camel-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-mail</artifactId>
+            <version>${apache-camel-version}</version>
+            <!-- use the same version as your Camel core version -->
+        </dependency>
+
 
         <!-- LOG-->
         <dependency>
