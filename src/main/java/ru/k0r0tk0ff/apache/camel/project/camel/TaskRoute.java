@@ -10,9 +10,6 @@ import ru.k0r0tk0ff.apache.camel.project.db.JmsRepository;
 public class TaskRoute extends RouteBuilder {
 
     @Autowired
-    private ErrorProcessor errorProcessor;
-
-    @Autowired
     private CountProcessor countProcessor;
 
     @Override
