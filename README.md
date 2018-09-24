@@ -13,4 +13,13 @@
 Для гарантированной доставки следует сконфигурировать и подключить менеджер распределенных транзакций (Bitronix TM).    
 Предполагаемое время решения - 10-15 ч.  
 
+-----------------------------------------------  
+
+Для тестирования отправки сообщений использовалось ПО  
+https://github.com/Nilhcem/FakeSMTP  
+
+runSMTPserver.bat  
+java -jar E:\tmp\WARNING\fakeSMTP-latest\fakeSMTP-2.0.jar --output-dir E:\tmp\WARNING\mails --start-server  
+
+
 
