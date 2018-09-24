@@ -26,7 +26,6 @@ public class JmsFileListener {
                             queue, out)
             );
         } catch (Exception e) {
-            e.printStackTrace();
             LOGGER.error("Error in JmsFileListener class!!", e);
         }
     }
