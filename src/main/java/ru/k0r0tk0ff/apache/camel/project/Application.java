@@ -27,7 +27,7 @@ public class Application implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments applicationArguments) throws Exception {
         TimeUnit.SECONDS.sleep(3);
-        jmsRepository.showDataInDb();
+        jmsRepository.showDataInH2Db();
         System.exit(0);
     }
 }
