@@ -18,7 +18,7 @@
         <maven-compiler-version>3.5.1</maven-compiler-version>
         <java-source-version>1.8</java-source-version>
         <java-target-version>1.8</java-target-version>
-     <!--   <apache-camel-version>2.18.0</apache-camel-version>-->
+        <derby-version>10.14.2.0</derby-version>
         <apache-camel-version>2.22.1</apache-camel-version>
     </properties>
 
@@ -48,6 +48,7 @@
             <artifactId>h2</artifactId>
             <version>${h2database-version}</version>
         </dependency>
+
         <!--JMS-->
         <dependency>
             <groupId>org.springframework</groupId>
