@@ -55,12 +55,12 @@ public class JmsRepository {
         jdbcTemplate.update(sql, recordId, value);
     }
 
-    public void showDataInDb(){
+    public void showDataInH2Db(){
         LOGGER.info("------------- Show result in database");
         String sql = "SELECT headers.head, msg.message " +
                 " FROM msg" +
                 " JOIN headers" +
-                " ON msg.msg_id = headers.headers_id;";
+                " ON msg.msg_id = headers.headers_id";
 
         //        byte[] data = SerializationUtils.serialize(entry.getValue());
         List<Map<String, byte[]>> list = jdbcTemplate.query(
