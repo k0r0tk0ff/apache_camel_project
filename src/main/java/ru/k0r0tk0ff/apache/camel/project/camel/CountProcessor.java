@@ -11,9 +11,9 @@ public class CountProcessor implements Processor {
 
     private static Logger LOGGER = LogManager.getLogger(CountProcessor.class);
 
-    private int xmlExtensionFileCount;
-    private int txtExtensionFileCount;
-    private int otherExtensionFileCount;
+    private int xmlExtensionFileCount = 0;
+    private int txtExtensionFileCount = 0;
+    private int otherExtensionFileCount = 0;
     private int summOfFiles = 0;
 
     public void process(Exchange exchange) throws Exception {
@@ -61,9 +61,11 @@ public class CountProcessor implements Processor {
             exchange.getOut().setHeader("Subject", "Count of files");
             exchange.getOut().setBody(body);
 
-            LOGGER.info("XmlFilesCount = " + xmlExtensionFileCount);
-            LOGGER.info("TxtFilesCount = " + txtExtensionFileCount);
-            LOGGER.info("OtherFilesCount = " + otherExtensionFileCount);
+            if(LOGGER.isDebugEnabled()) {
+                LOGGER.info("XmlFilesCount = " + xmlExtensionFileCount);
+                LOGGER.info("TxtFilesCount = " + txtExtensionFileCount);
+                LOGGER.info("OtherFilesCount = " + otherExtensionFileCount);
+            }
         }
     }
 }
