@@ -22,10 +22,10 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class JmsRepository {
+public class H2Repository {
 
     private static Logger LOGGER =
-            LogManager.getLogger(JmsRepository.class);
+            LogManager.getLogger(H2Repository.class);
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -42,7 +42,7 @@ public class JmsRepository {
             try {
                 ps.setBlob(1, inputStream);
             } catch (Exception e) {
-                LOGGER.error("Error (insert message body) in JmsRepository class!", e);
+                LOGGER.error("Error (insert message body) in H2Repository class!", e);
             }
             return ps;
         }, holder);
@@ -87,6 +87,18 @@ public class JmsRepository {
                         String.format(
                                 "type: %s  body: %s", entry.getKey(),str));
             }
+        }
+    }
+
+    public void cleadH2Db() {
+        try {
+            String deleteTable1 = "DROP TABLE msg";
+            String deleteTable2 = "DROP TABLE headers";
+            jdbcTemplate.execute(deleteTable1);
+            jdbcTemplate.execute(deleteTable2);
+            LOGGER.info("Drop tables success.......");
+        } catch (Exception e) {
+            LOGGER.error("Cannot drop tables !", e);
         }
     }
 }
