@@ -13,13 +13,22 @@
 Для гарантированной доставки следует сконфигурировать и подключить менеджер распределенных транзакций (Bitronix TM).    
 Предполагаемое время решения - 10-15 ч.  
 
------------------------------------------------  
+-----------------------------------------------
+HOW TO USE -  
 
-Для тестирования отправки сообщений использовалось ПО  
+1) Скачать и запустить SMTP сервер c настройками по умолчанию -  
 https://github.com/Nilhcem/FakeSMTP  
+Для удобства можно создать файл для запуска.  
+К примеру, такой -   
+runSMTPserver.bat,  
+с содержимым -  
+java -jar E:\tmp\WARNING\fakeSMTP-latest\fakeSMTP-2.0.jar --output-dir E:\tmp\WARNING\mails --start-server   
 
-runSMTPserver.bat  
-java -jar E:\tmp\WARNING\fakeSMTP-latest\fakeSMTP-2.0.jar --output-dir E:\tmp\WARNING\mails --start-server  
+2) Скачать реализацию базы данных H2 с офф сайта  
+http://www.h2database.com/h2-2017-06-10.zip  
+распаковать, и запустить {extract_folder_name}\h2\bin\h2w.bat (для Win)  
+В отличие от "embedded" и "file" режимов "tcp" работает стабильнее.  
+
 
 
 
