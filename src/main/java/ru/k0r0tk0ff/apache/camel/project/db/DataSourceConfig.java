@@ -33,10 +33,17 @@ public class DataSourceConfig {
         return dataSource;
     }
 
-    @PostConstruct
-    @DependsOn("h2DataSource")
-    void createDb(){
+    @Bean
+    @Qualifier("JdbcTemplateForH2")
+    JdbcTemplate getJdbcTemplate() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
+        return jdbcTemplate;
+    }
+
+    @PostConstruct
+    @DependsOn("JdbcTemplateForH2")
+    void createDb(){
+        JdbcTemplate jdbcTemplate = getJdbcTemplate();
         String createTable1 = "CREATE TABLE msg (" +
                 "    msg_id INTEGER GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1) PRIMARY KEY," +
                 "    message BLOB NOT NULL" +
@@ -50,21 +57,5 @@ public class DataSourceConfig {
         jdbcTemplate.execute(createTable1);
         jdbcTemplate.execute(createTable2);
         LOGGER.info("Create tables success.......");
-    }
-
-    @PreDestroy
-    @DependsOn("h2DataSource")
-    void dropTableInDb() {
-        try {
-            JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
-            String deleteTable1 = "DROP TABLE msg";
-            String deleteTable2 = "DROP TABLE headers";
-            jdbcTemplate.execute(deleteTable1);
-            jdbcTemplate.execute(deleteTable2);
-            //System.out.println("Drop tables success.......");
-            LOGGER.info("Drop tables success.......");
-        } catch (Exception e) {
-            LOGGER.error("Cannot drop tables !", e);
-        }
     }
 }
