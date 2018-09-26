@@ -6,8 +6,17 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 public class CountProcessor implements Processor {
+
+
+    long timestamp;
+
+    public CountProcessor() {
+        timestamp = System.nanoTime();
+    }
 
     private static Logger LOGGER = LogManager.getLogger(CountProcessor.class);
 
@@ -17,9 +26,7 @@ public class CountProcessor implements Processor {
     private int summOfFiles = 0;
 
     public void process(Exchange exchange) throws Exception {
-
         boolean anotherExtensionFlag = true;
-
         if (exchange.getMessage()
                 .getHeader("CamelFileName")
                 .toString()
@@ -46,6 +53,9 @@ public class CountProcessor implements Processor {
         }
 
         if(summOfFiles % 3 == 0) {
+            long currentTime = System.nanoTime();
+            long deltaTime = currentTime - timestamp;
+            timestamp = currentTime;
             String body = "countTxt:"
                     + txtExtensionFileCount
                     + "\n" + "countXml: "
@@ -53,7 +63,8 @@ public class CountProcessor implements Processor {
                     + "countOther: "
                     + otherExtensionFileCount
                     + "\n" + "sum of files: "
-                    + summOfFiles;
+                    + summOfFiles + "\n"
+                    + "elapsed time: " + deltaTime + " nanoseconds";
 
             exchange.getOut().setHeader("host", "localhost");
             exchange.getOut().setHeader("to", "korotkov_a_a@magnit.ru");
@@ -69,4 +80,3 @@ public class CountProcessor implements Processor {
         }
     }
 }
-
