@@ -4,7 +4,7 @@ import org.apache.camel.builder.RouteBuilder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.k0r0tk0ff.apache.camel.project.db.JmsRepository;
+import ru.k0r0tk0ff.apache.camel.project.db.H2Repository;
 
 @Component
 public class TaskRoute extends RouteBuilder {
@@ -15,12 +15,13 @@ public class TaskRoute extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("file:data?noop=true")
+        .streamCaching()
         .choice()
         .when(header("CamelFileName").endsWith(".xml"))
             .to("jms:queue:empty")
             .process(countProcessor)
         .when(header("CamelFileName").endsWith(".txt"))
-            .bean(JmsRepository.class, "writeMessageToDb")
+            .bean(H2Repository.class, "writeMessageToDb")
             .to("jms:queue:empty")
             .process(countProcessor)
         .otherwise()
