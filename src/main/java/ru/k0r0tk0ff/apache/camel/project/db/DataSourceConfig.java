@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 
 @Configuration
 @PropertySources({ @PropertySource("classpath:datasource-cfg.properties") })
@@ -53,9 +52,10 @@ public class DataSourceConfig {
                 "    FOREIGN KEY (headers_id) references msg(msg_id)," +
                 "    head VARCHAR(256) NOT NULL" +
                 ")";
-
         jdbcTemplate.execute(createTable1);
         jdbcTemplate.execute(createTable2);
-        LOGGER.info("Create tables success.......");
+        if(LOGGER.isDebugEnabled()) {
+        LOGGER.debug("Create tables success.......");
+        }
     }
 }
