@@ -14,6 +14,8 @@ public class TaskRoute extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
+        errorHandler(deadLetterChannel("jms:queue:invalid-queue"));
+
         from("file:data?noop=true")
         .streamCaching()
         .choice()
@@ -27,7 +29,6 @@ public class TaskRoute extends RouteBuilder {
         .otherwise()
             .process(countProcessor)
             .throwException(new Exception(" Wrong extension !"))
-            .to("jms:queue:invalid-queue")
         .end()
             .choice()
             .when(header("to").isNotNull())
