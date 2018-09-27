@@ -54,8 +54,8 @@ public class CountProcessor implements Processor {
         }
         String extension = getExtension(fileName);
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.info("---------- FILE EXTENSION ------------------");
-            LOGGER.info(extension);
+            LOGGER.debug("---------- FILE EXTENSION ------------------");
+            LOGGER.debug(extension);
         }
 
         if(extension.equals(TXT) || extension.equals(XML)) {
