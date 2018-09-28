@@ -23,6 +23,9 @@ public class CountProcessor implements Processor {
     public CountProcessor() {
         timestamp = System.nanoTime();
         fileTypesMap = new HashMap<>();
+        fileTypesMap.put(XML, 0);
+        fileTypesMap.put(TXT, 0);
+        fileTypesMap.put(UNDEFINED, 0);
     }
     private static Logger LOGGER = LogManager.getLogger(CountProcessor.class);
     private int summOfFiles = 0;
@@ -78,12 +81,8 @@ public class CountProcessor implements Processor {
     }
 
     void increaseCountFileWithExtension(String extension) {
-        if(fileTypesMap.containsKey(extension)) {
             int buffer = fileTypesMap.get(extension);
             fileTypesMap.put(extension, ++buffer);
-        } else {
-            fileTypesMap.put(extension, 1);
-        }
     }
 
     private void sendEmail(Exchange exchange) {
