@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
+@DependsOn("camelContext")
 public class CountProcessor implements Processor {
     private final static int BATCH_OF_MESSAGES_SIZE = 3;
     private final static String TXT = "txt";
