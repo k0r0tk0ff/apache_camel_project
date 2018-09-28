@@ -14,7 +14,8 @@ public class TaskRoute extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        errorHandler(deadLetterChannel("jms:queue:invalid-queue"));
+        errorHandler(
+           deadLetterChannel("jms:queue:invalid-queue"));
 
         from("file:data?noop=true")
         .streamCaching()
