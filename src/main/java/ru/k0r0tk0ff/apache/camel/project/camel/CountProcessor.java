@@ -5,13 +5,13 @@ import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
-@DependsOn("camelContext")
 public class CountProcessor implements Processor {
     private final static int BATCH_OF_MESSAGES_SIZE = 3;
     private final static String TXT = "txt";
@@ -22,7 +22,6 @@ public class CountProcessor implements Processor {
     private Map<String, Integer> fileTypesMap;
 
     public CountProcessor() {
-        timestamp = System.nanoTime();
         fileTypesMap = new HashMap<>();
         fileTypesMap.put(XML, 0);
         fileTypesMap.put(TXT, 0);
@@ -32,6 +31,7 @@ public class CountProcessor implements Processor {
     private int summOfFiles = 0;
 
     public void process(Exchange exchange) throws Exception {
+        timestamp = System.nanoTime();
         messageExtensionHandler(exchange);
         summOfFiles++;
 
