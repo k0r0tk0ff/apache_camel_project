@@ -87,9 +87,23 @@ public class CountProcessor implements Processor {
     }
 
     private void sendEmail(Exchange exchange) {
+        String mailBody = getLetterBody(getDeltaTime());
+        Message message = exchange.getOut();
+        message.setHeader("host", "localhost");
+        message.setHeader("to", "korotkov_a_a@magnit.ru");
+        message.setHeader("From", "korotkov_a_a@magnit.ru");
+        message.setHeader("Subject", "Count of files");
+        message.setBody(mailBody);
+    }
+
+    private long getDeltaTime() {
         long currentTime = System.nanoTime();
         long deltaTime = currentTime - timestamp;
         timestamp = currentTime;
+        return deltaTime;
+    }
+
+    private String getLetterBody(long deltaTime) {
         StringBuilder mailBody = new StringBuilder();
         mailBody.append("countTxt: ");
         mailBody.append(fileTypesMap.get(TXT));
@@ -103,12 +117,6 @@ public class CountProcessor implements Processor {
         mailBody.append("elapsed time: ");
         mailBody.append(deltaTime);
         mailBody.append(" nanoseconds");
-
-        Message message = exchange.getOut();
-        message.setHeader("host", "localhost");
-        message.setHeader("to", "korotkov_a_a@magnit.ru");
-        message.setHeader("From", "korotkov_a_a@magnit.ru");
-        message.setHeader("Subject", "Count of files");
-        message.setBody(mailBody);
+        return mailBody.toString();
     }
 }
